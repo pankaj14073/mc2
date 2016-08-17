@@ -15,44 +15,53 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity
 {
-    int ans;
+    int answer;
     String msg = "Android : ";
     private ProgressDialog progress;
-    private Button b1,b2,b3;
-    Bundle b;
-    int k;
+    private Button yesButton,noButton,nextButton;;
+    int currentValue;
+    static final String  key="key";
 
     /** Called when the activity is first created. */
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
 
+        Random r = new Random();
 
         super.onCreate(savedInstanceState);
+      if (savedInstanceState != null) {
+            // Restore value of members from saved state
+          currentValue = savedInstanceState.getInt(key);
+
+        } else {
+          currentValue = r.nextInt(1000 - 1) + 1;
+            // Probably initialize members with default values for a new instance
+        }
+
         setContentView(R.layout.activity_main);
         TextView txtView = (TextView) findViewById(R.id.textView);
         txtView.setTextSize(20);
-        Random r = new Random();
-        k = r.nextInt(1000 - 1) + 1;
 
-        String s = k + "   is a prime number ?";
+        //k = r.nextInt(1000 - 1) + 1;
+        String s = currentValue + "   is a prime number ?";
         txtView.setText(s);
         progress = new ProgressDialog(this);
-        ans=p(k);
+        answer=p(currentValue);
 
 
-        b1 = (Button) findViewById(R.id.yes);
-        b2 = (Button) findViewById(R.id.no);
-        b3 = (Button) findViewById(R.id.next);
-        b1.setOnClickListener(onClickListener);
-        b2.setOnClickListener(onClickListener);
-        b3.setOnClickListener(onClickListener);
+        yesButton = (Button) findViewById(R.id.yes);
+        noButton = (Button) findViewById(R.id.no);
+        nextButton = (Button) findViewById(R.id.next);
+        yesButton.setOnClickListener(onClickListener);
+        noButton.setOnClickListener(onClickListener);
+        nextButton.setOnClickListener(onClickListener);
     }
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch(v.getId()){
                     case R.id.yes:
-                        if(ans==1)
+                        if(answer==1)
                         {
 
                             ImageView img = (ImageView) findViewById(R.id.imageView);
@@ -71,16 +80,16 @@ public class MainActivity extends AppCompatActivity
                         TextView txtView = (TextView) findViewById(R.id.textView);
                         txtView.setTextSize(20);
                         Random r = new Random();
-                        k = r.nextInt(1000 - 1) + 1;
+                        currentValue= r.nextInt(1000 - 1) + 1;
 
-                        String s = k + "   is a prime number ?";
+                        String s = currentValue + "   is a prime number ?";
                         txtView.setText(s);
-                        ans=p(k);
+                        answer=p(currentValue);
 
 
                         break;
                     case R.id.no:
-                        if(ans==0) {
+                        if(answer==0) {
 
                             ImageView img = (ImageView) findViewById(R.id.imageView);
                           //  img.setImageResource(R.drawable.abc);
@@ -98,11 +107,11 @@ public class MainActivity extends AppCompatActivity
                          txtView = (TextView) findViewById(R.id.textView);
                         txtView.setTextSize(20);
                          r = new Random();
-                        k = r.nextInt(1000 - 1) + 1;
+                        currentValue = r.nextInt(1000 - 1) + 1;
 
-                         s = k + "   is a prime number ?";
+                         s = currentValue + "   is a prime number ?";
                         txtView.setText(s);
-                        ans=p(k);
+                        answer=p(currentValue);
 
 
                         //DO something
@@ -115,11 +124,11 @@ public class MainActivity extends AppCompatActivity
                          txtView = (TextView) findViewById(R.id.textView);
                         txtView.setTextSize(20);
                          r = new Random();
-                        k = r.nextInt(1000 - 1) + 1;
+                        currentValue = r.nextInt(1000 - 1) + 1;
 
-                         s = k + "   is a prime number ?";
+                         s = currentValue + "   is a prime number ?";
                         txtView.setText(s);
-                        ans=p(k);
+                        answer=p(currentValue);
 
                         break;
 
@@ -143,10 +152,19 @@ public class MainActivity extends AppCompatActivity
         Log.d(msg, "The onResume() event");
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save the user's current game state
+        savedInstanceState.putInt(key,currentValue);
+        // Always call the superclass so it can save the view hierarchy state
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
     /** Called when another activity is taking focus. */
     @Override
     protected void onPause() {
         super.onPause();
+
         Log.d(msg, "The onPause() event");
     }
 
