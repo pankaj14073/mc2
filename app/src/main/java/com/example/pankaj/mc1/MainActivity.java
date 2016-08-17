@@ -34,14 +34,10 @@ public class MainActivity extends AppCompatActivity
         Random r = new Random();
         k = r.nextInt(1000 - 1) + 1;
 
-        String s = k + "   is an even number ?";
+        String s = k + "   is a prime number ?";
         txtView.setText(s);
         progress = new ProgressDialog(this);
-
-        if (k % 2 == 0)
-            ans = 1;
-        else
-            ans = 0;
+        ans=p(k);
 
 
         b1 = (Button) findViewById(R.id.yes);
@@ -60,7 +56,7 @@ public class MainActivity extends AppCompatActivity
                         {
 
                             ImageView img = (ImageView) findViewById(R.id.imageView);
-                            img.setImageResource(R.drawable.abc);
+                         //   img.setImageResource(R.drawable.abc);
                             Toast.makeText(getApplicationContext(), "congratulations", Toast.LENGTH_SHORT).show();
 
                         }
@@ -68,7 +64,7 @@ public class MainActivity extends AppCompatActivity
                         {
 
                             ImageView img= (ImageView) findViewById(R.id.imageView);
-                            img.setImageResource(R.drawable.abc);
+                           // img.setImageResource(R.drawable.abc);
                             Toast.makeText(getApplicationContext(), "idiot its a wrong answer", Toast.LENGTH_SHORT).show();
 
                         }
@@ -77,12 +73,9 @@ public class MainActivity extends AppCompatActivity
                         Random r = new Random();
                         k = r.nextInt(1000 - 1) + 1;
 
-                        String s = k + "   is an even number ?";
+                        String s = k + "   is a prime number ?";
                         txtView.setText(s);
-                        if (k % 2 == 0)
-                            ans = 1;
-                        else
-                            ans = 0;
+                        ans=p(k);
 
 
                         break;
@@ -90,7 +83,7 @@ public class MainActivity extends AppCompatActivity
                         if(ans==0) {
 
                             ImageView img = (ImageView) findViewById(R.id.imageView);
-                            img.setImageResource(R.drawable.abc);
+                          //  img.setImageResource(R.drawable.abc);
                             Toast.makeText(getApplicationContext(), "congratulations", Toast.LENGTH_LONG).show();
 
                         }
@@ -98,7 +91,7 @@ public class MainActivity extends AppCompatActivity
                         {
 
                             ImageView img= (ImageView) findViewById(R.id.imageView);
-                            img.setImageResource(R.drawable.abc);
+                          //  img.setImageResource(R.drawable.abc);
                             Toast.makeText(getApplicationContext(), "idiot its a wrong answer", Toast.LENGTH_LONG).show();
 
                         }
@@ -107,12 +100,9 @@ public class MainActivity extends AppCompatActivity
                          r = new Random();
                         k = r.nextInt(1000 - 1) + 1;
 
-                         s = k + "   is an even number ?";
+                         s = k + "   is a prime number ?";
                         txtView.setText(s);
-                        if (k % 2 == 0)
-                            ans = 1;
-                        else
-                            ans = 0;
+                        ans=p(k);
 
 
                         //DO something
@@ -127,12 +117,9 @@ public class MainActivity extends AppCompatActivity
                          r = new Random();
                         k = r.nextInt(1000 - 1) + 1;
 
-                         s = k + "   is an even number ?";
+                         s = k + "   is a prime number ?";
                         txtView.setText(s);
-                        if (k % 2 == 0)
-                            ans = 1;
-                        else
-                            ans = 0;
+                        ans=p(k);
 
                         break;
 
@@ -177,6 +164,7 @@ public class MainActivity extends AppCompatActivity
         Log.d(msg, "The onDestroy() event");
     }
 
+    public int p(int number){ for(int i=2; i<=number/2; i++){ if(number % i == 0){ return 0; } } return 1; }
 
 
 

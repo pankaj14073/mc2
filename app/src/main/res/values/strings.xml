@@ -1,7 +1,9 @@
 <resources>
 
-    <string name="app_name">odd ? </string>
-    <string name="question">odd or even?</string>
+    <string name="app_name">prime </string>
+    <string name="question">prime or not?</string>
     <string name="next">Next</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
 
 </resources>
