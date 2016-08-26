@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +21,9 @@ public class MainActivity extends AppCompatActivity
     private ProgressDialog progress;
     private Button yesButton,noButton,nextButton;;
     int currentValue;
-    static final String  key="key";
+        static final String  key="key";
+    static final String  NUMBER_MESSAGE="NumberMessage";
+    static final String  SOLUTION_MESSAGE="SolutionMessage";
 
     /** Called when the activity is first created. */
     @Override
@@ -137,6 +140,20 @@ public class MainActivity extends AppCompatActivity
             }
         };
 
+    public void sendHint(View view) {
+        Intent intent = new Intent(this, DisplayHint.class);
+        String tmp=String.valueOf(currentValue);
+        intent.putExtra(NUMBER_MESSAGE,tmp);
+        startActivity(intent);
+    }
+    public void sendSolution(View view) {
+        Intent intent = new Intent(this, DisplaySolution.class);
+        String tmp=String.valueOf(currentValue);
+        intent.putExtra(NUMBER_MESSAGE,tmp);
+         tmp= String.valueOf(answer);
+        intent.putExtra(SOLUTION_MESSAGE,tmp);
+        startActivity(intent);
+    }
 
     /** Called when the activity is about to become visible. */
     @Override
