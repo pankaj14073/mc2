@@ -24,12 +24,18 @@ public class MainActivity extends AppCompatActivity
         static final String  key="key";
     static final String  NUMBER_MESSAGE="NumberMessage";
     static final String  SOLUTION_MESSAGE="SolutionMessage";
+    static final String  TAKEN_HINT="TakenHint";
+    static final String  TAKEN_CHEAT="TakenCheat";
+    String takencheat="0";
+    String takenhint="0";
+
 
     /** Called when the activity is first created. */
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
 
         Random r = new Random();
+
 
         super.onCreate(savedInstanceState);
       if (savedInstanceState != null) {
@@ -40,6 +46,9 @@ public class MainActivity extends AppCompatActivity
           currentValue = r.nextInt(1000 - 1) + 1;
             // Probably initialize members with default values for a new instance
         }
+
+
+
 
         setContentView(R.layout.activity_main);
         TextView txtView = (TextView) findViewById(R.id.textView);
@@ -144,22 +153,62 @@ public class MainActivity extends AppCompatActivity
         Intent intent = new Intent(this, DisplayHint.class);
         String tmp=String.valueOf(currentValue);
         intent.putExtra(NUMBER_MESSAGE,tmp);
-        startActivity(intent);
+        intent.putExtra(TAKEN_HINT,takenhint);
+        intent.putExtra(TAKEN_CHEAT,takencheat);
+        Log.d(msg, "The sendhint()  event");
+        startActivityForResult(intent,5);
+
     }
     public void sendSolution(View view) {
         Intent intent = new Intent(this, DisplaySolution.class);
         String tmp=String.valueOf(currentValue);
+
         intent.putExtra(NUMBER_MESSAGE,tmp);
          tmp= String.valueOf(answer);
         intent.putExtra(SOLUTION_MESSAGE,tmp);
-        startActivity(intent);
+        intent.putExtra(TAKEN_HINT,takenhint);
+        intent.putExtra(TAKEN_CHEAT,takencheat);
+        Log.d(msg, "The sendcheat()  event");
+
+        startActivityForResult(intent,5);
+
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 5) {
+            if(resultCode == 1){
+
+                takenhint =data.getStringExtra("TakenHint");
+                takencheat =data.getStringExtra("TakenCheat");
+                if(takencheat!=null)
+                if(takencheat.contains("1"))
+                    Toast.makeText(getApplicationContext
+                            (), " CHEATED", Toast.LENGTH_SHORT).show();
+                if(takenhint!=null)
+                if(takenhint.contains("1"))
+                    Toast.makeText(getApplicationContext()," TAKEN HINT", Toast.LENGTH_SHORT).show();
+                takencheat="0";
+                takenhint="0";
+
+                Log.d(msg, "The onACTIVITYresult() event"+takenhint);
+            }
+
+        }
+
+    }
+
 
     /** Called when the activity is about to become visible. */
     @Override
     protected void onStart() {
+
         super.onStart();
-        Log.d(msg, "The onStart() event");
+
+        takencheat="0";
+        takenhint="0";
+        Log.d(msg, "The onStart() event"+takenhint);
     }
 
     /** Called when the activity has become visible. */
